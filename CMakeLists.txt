@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(zprProject)
 find_package(PkgConfig)
 
-#set(CMAKE_CXX_COMPILER "g++")
+#set(CMAKE_CXX_COMPILER "clang")
 add_definitions("-lboost_system -Wall -pthread")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lboost_system")
 #set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -17,26 +17,27 @@ set(APP_TARGET CraftMineBin)
 
 
 include_directories(${PROJECT_SOURCE_DIR})
+
 add_executable(${APP_TARGET}
-		src/main.cpp src/game/GameWindow.cpp src/game/GameWindow.h)
+		src/main.cpp
 
-# glfw
-find_package(glfw3 REQUIRED)
-include_directories(${GLFW_INCLUDE_DIRS})
-link_libraries(${GLFW_LIBRARY_DIRS})
+		src/game/GameWindow.cpp
+		src/game/GameWindow.h
 
-# opengl
-find_package(OpenGL REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIRS})
+		src/sys/Path.cpp
+		src/sys/Path.h src/sys/ResourceLoader.cpp src/sys/ResourceLoader.h)
 
-# glew
-find_package(GLEW REQUIRED)
-include_directories(${GLEW_INCLUDE_DIRS})
+#Blocks
+target_sources(${APP_TARGET} PUBLIC
+		src/block/Abstract.cpp
+		src/block/Abstract.h
 
-# glm
-find_package(glm REQUIRED)
-include_directories(${GLM_INCLUDE_DIRS})
-link_libraries(${GLM_LIBRARY_DIRS})
+		src/block/SolidAbstract.cpp
+		src/block/SolidAbstract.h
+
+		src/block/terrain/Stone.cpp
+		src/block/terrain/Stone.h)
+
 
 # orge3D
 find_package(OGRE REQUIRED)
@@ -54,3 +55,5 @@ target_link_libraries(
 )
 
 file(COPY ${OGRE_CONFIG_DIR}/plugins.cfg ${OGRE_CONFIG_DIR}/resources.cfg DESTINATION ${CMAKE_BINARY_DIR})
+
+configure_file(resources.cfg resources.cfg COPYONLY)

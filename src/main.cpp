@@ -1,7 +1,3 @@
-//
-// Created by adam on 22.04.18.
-//
-
 
 #include <iostream>
 #include <src/game/GameWindow.h>
@@ -13,7 +9,7 @@ int main(int argc, char *argv[]) {
 
 	try {
 
-		auto game = game::GameWindow();
+		auto game = Game::GameWindow();
 		game.initApp();
 		game.open();
 		game.closeApp();

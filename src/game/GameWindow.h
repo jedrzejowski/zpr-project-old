@@ -6,10 +6,11 @@
 #define GKOM_ANIMATION_GAME_H
 
 
+#include <Ogre.h>
 #include <Bites/OgreInput.h>
 #include <Bites/OgreApplicationContext.h>
 
-namespace game {
+namespace Game {
 
 	class GameWindow : public OgreBites::ApplicationContext, public OgreBites::InputListener {
 	protected:
@@ -17,7 +18,7 @@ namespace game {
 
 		GameWindow();
 
-		bool keyPressed(const OgreBites::KeyboardEvent& evt);
+		bool keyPressed(const OgreBites::KeyboardEvent &evt);
 
 		void setup();
 
