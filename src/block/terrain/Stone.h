@@ -8,6 +8,8 @@
 
 namespace Block {
 	class Stone : public SolidAbstract {
+	protected:
+
 	public:
 
 		std::string getName() {

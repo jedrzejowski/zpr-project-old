@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include <src/game/GameWindow.h>
+#include <src/game/GameManager.h>
 
 
 using namespace std;
@@ -9,10 +9,10 @@ int main(int argc, char *argv[]) {
 
 	try {
 
-		auto game = Game::GameWindow();
-		game.initApp();
-		game.open();
-		game.closeApp();
+		Game::GameManager::getInstance();
+		Game::GameManager::getInstance().initApp();
+		Game::GameManager::getInstance().open();
+		Game::GameManager::getInstance().closeApp();
 
 	} catch (exception &error) {
 		cout << error.what();

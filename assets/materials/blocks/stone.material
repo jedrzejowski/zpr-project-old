@@ -1,0 +1,10 @@
+material Stone {
+    technique {
+        pass {
+			texture_unit{
+			   texture stone.png 2d
+			   filtering none
+			}
+        }
+    }
+}

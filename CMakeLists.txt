@@ -3,7 +3,7 @@ project(zprProject)
 find_package(PkgConfig)
 
 #set(CMAKE_CXX_COMPILER "clang")
-add_definitions("-lboost_system -Wall -pthread")
+#/add_definitions("-lboost_system -Wall -pthread")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lboost_system")
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -21,11 +21,17 @@ include_directories(${PROJECT_SOURCE_DIR})
 add_executable(${APP_TARGET}
 		src/main.cpp
 
-		src/game/GameWindow.cpp
-		src/game/GameWindow.h
+		src/game/GameManager.cpp
+		src/game/GameManager.h
+
+		src/game/Camera.cpp
+		src/game/Camera.h
 
 		src/sys/Path.cpp
-		src/sys/Path.h src/sys/ResourceLoader.cpp src/sys/ResourceLoader.h)
+		src/sys/Path.h
+		src/sys/ResourceLoader.cpp
+		src/sys/ResourceLoader.h
+		src/world/Chunk.cpp src/world/Chunk.h src/world/World.cpp src/world/World.h)
 
 #Blocks
 target_sources(${APP_TARGET} PUBLIC

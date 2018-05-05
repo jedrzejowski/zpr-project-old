@@ -9,6 +9,9 @@
 namespace Block {
 
 	class SolidAbstract : public Abstract {
+	protected:
+		Ogre::MovableObject *cube = nullptr;
+
 	public:
 		static Ogre::ManualObject *createCubeMesh(Ogre::String name, Ogre::String matName);
 

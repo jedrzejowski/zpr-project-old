@@ -9,7 +9,7 @@ using namespace Block;
 Ogre::ManualObject *SolidAbstract::createCubeMesh(Ogre::String name, Ogre::String matName) {
 
 	auto cube = new Ogre::ManualObject(name);
-	cube->begin(matName);
+	cube->begin(matName, Ogre::RenderOperation::OT_TRIANGLE_LIST, "Block");
 
 	cube->position(0.5,-0.5,1.0);cube->normal(0.408248,-0.816497,0.408248);cube->textureCoord(1,0);
 	cube->position(-0.5,-0.5,0.0);cube->normal(-0.408248,-0.816497,-0.408248);cube->textureCoord(0,1);
