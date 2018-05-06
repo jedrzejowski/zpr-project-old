@@ -43,3 +43,9 @@ Ogre::ManualObject *SolidAbstract::createCubeMesh(Ogre::String name, Ogre::Strin
 
 	return cube;
 }
+
+void SolidAbstract::appendTo(Ogre::SceneNode *sceneNode) {
+	this->sceneNode = sceneNode;
+
+	sceneNode->attachObject(get3dObject());
+}

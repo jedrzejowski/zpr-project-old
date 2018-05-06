@@ -31,7 +31,7 @@ add_executable(${APP_TARGET}
 		src/sys/Path.h
 		src/sys/ResourceLoader.cpp
 		src/sys/ResourceLoader.h
-		src/world/Chunk.cpp src/world/Chunk.h src/world/World.cpp src/world/World.h)
+		src/world/Chunk.cpp src/world/Chunk.h src/world/World.cpp src/world/World.h src/lib/PerlinNoise.cpp src/lib/PerlinNoise.h)
 
 #Blocks
 target_sources(${APP_TARGET} PUBLIC

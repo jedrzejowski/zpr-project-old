@@ -14,14 +14,19 @@ Camera::Camera(const Ogre::String &name) {
 	camera->setAutoAspectRatio(true);
 
 	cameraNode = GameManager::getInstance().getSceneManager()->getRootSceneNode()->createChildSceneNode();
-	cameraNode->attachObject(camera);
+	yawXNode = cameraNode->createChildSceneNode();
+	yawYNode = yawXNode->createChildSceneNode();
+	yawZNode = yawYNode->createChildSceneNode();
+	yawZNode->attachObject(camera);
+
 
 	front = Ogre::Vector3(0, 0, -1);
 	up = Ogre::Vector3(0, 1, 0);
 	position = Ogre::Vector3(0, 0, 15);
 	moveScale = 0.1;
 
-	update();
+	yawYNode->rotate(Ogre::Vector3(0, 0, 1), Ogre::Degree(90), Ogre::Node::TS_LOCAL);
+	yawZNode->rotate(Ogre::Vector3(0, 0, -1), Ogre::Degree(90), Ogre::Node::TS_LOCAL);
 
 	initViewports();
 }
@@ -36,31 +41,51 @@ void Camera::initViewports() {
 			Ogre::Real(vp->getActualHeight()));
 }
 
-void Camera::moveFromEvent(const OgreBites::KeyboardEvent &evt) {
 
-	if (evt.keysym.sym == SDLK_w) keyW = evt.state == SDL_PRESSED;
-	else keyW = false;
+bool Camera::keyPressed(const OgreBites::KeyboardEvent &evt) {
 
-	if (evt.keysym.sym == SDLK_d) keyD = evt.state == SDL_PRESSED;
-	else keyD = false;
+	if (evt.keysym.sym == SDLK_w) keyW = true;
+	if (evt.keysym.sym == SDLK_d) keyD = true;
+	if (evt.keysym.sym == SDLK_s) keyS = true;
+	if (evt.keysym.sym == SDLK_a) keyA = true;
 
-	if (evt.keysym.sym == SDLK_s) keyS = evt.state == SDL_PRESSED;
-	else keyS = false;
-
-	if (evt.keysym.sym == SDLK_a) keyA = evt.state == SDL_PRESSED;
-	else keyA = false;
-
-	update();
+	return true;
 }
 
-void Camera::update() {
+bool Camera::keyReleased(const OgreBites::KeyboardEvent &evt) {
+	if (evt.keysym.sym == SDLK_w) keyW = false;
+	if (evt.keysym.sym == SDLK_d) keyD = false;
+	if (evt.keysym.sym == SDLK_s) keyS = false;
+	if (evt.keysym.sym == SDLK_a) keyA = false;
+
+	return true;
+}
+
+void Camera::frameRendered(const Ogre::FrameEvent &evt) {
+
 	if (keyW) position += front * moveScale;
 	if (keyS) position -= front * moveScale;
-	if (keyA) position -= up.crossProduct(front).normalisedCopy() * moveScale;
-	if (keyD) position += up.crossProduct(front).normalisedCopy() * moveScale;
+	if (keyA) position += up.crossProduct(front).normalisedCopy() * moveScale;
+	if (keyD) position -= up.crossProduct(front).normalisedCopy() * moveScale;
 
 	cameraNode->setPosition(position);
-	cameraNode->lookAt(position, Ogre::Node::TS_WORLD, up);
+	cameraNode->lookAt(position, Ogre::Node::TS_WORLD);
 }
 
+bool Camera::mouseMoved(const OgreBites::MouseMotionEvent &evt) {
 
+	//std::cout << evt.x << ":" << evt.xrel << std::endl << std::flush;
+
+	Ogre::Degree rotateScale(0.1);
+	Ogre::Vector3 right = up.crossProduct(front).normalisedCopy();
+
+	//cameraNode->rotate(up, rotateScale * evt.xrel, Ogre::Node::TS_PARENT);
+	//cameraNode->rotate(right, rotateScale * evt.yrel, Ogre::Node::TS_PARENT);
+
+	yawXNode->yaw(rotateScale * evt.xrel);
+	yawYNode->yaw(rotateScale * evt.yrel);
+
+
+
+	return true;
+}

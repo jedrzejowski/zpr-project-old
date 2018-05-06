@@ -15,6 +15,8 @@ namespace Block {
 	public:
 		static Ogre::ManualObject *createCubeMesh(Ogre::String name, Ogre::String matName);
 
+		virtual void appendTo(Ogre::SceneNode* sceneNode);
+
 		bool isSolid() {
 			return true;
 		}

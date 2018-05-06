@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <src/block/terrain/Stone.h>
+#include <src/world/World.h>
 #include "GameManager.h"
 
 using namespace std;
@@ -35,33 +36,25 @@ void GameManager::setup() {
 	lightNode->attachObject(light);
 
 	mainCamera = new Camera("MainCamera");
+	addInputListener(mainCamera);
 
 
-
-	SceneNode* world = sceneManager->getRootSceneNode()->createChildSceneNode();
-
-	SceneNode* chunk1 = world->createChildSceneNode();
-	SceneNode* chunk2 = world->createChildSceneNode();
-
-	auto stone1 = Block::Stone();
-	auto stone2 = Block::Stone();
-
-	chunk1->setPosition(0,2,0);
-	chunk1->attachObject(stone1.get3dObject());
-
-	chunk2->setPosition(0,-2,0);
-	chunk2->attachObject(stone2.get3dObject());
-
+	auto world = World::World();
+	world.appendTo(sceneManager->getRootSceneNode()->createChildSceneNode());
 
 }
 
 void GameManager::open() {
 	getRoot()->startRendering();
 
+	//while (true) {
+
+	//	getRoot()->renderOneFrame();
+
+	//}
 }
 
 bool GameManager::keyPressed(const OgreBites::KeyboardEvent &evt) {
-	mainCamera->moveFromEvent(evt);
 
 	return true;
 }

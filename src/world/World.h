@@ -7,7 +7,9 @@
 #include <utility>
 #include <map>
 
-#include "Ogre.h"
+#include <Ogre.h>
+
+#include "src/lib/PerlinNoise.h"
 #include "Chunk.h"
 
 namespace World {
@@ -15,10 +17,24 @@ namespace World {
 	class World {
 	protected:
 
-		std::map<std::pair<int,int>, Chunk> worldMap;
+		PerlinNoise perlinNoise;
+		Ogre::SceneNode *sceneNode;
+		std::map<ChunkCoord, Chunk*> chunkMap;
 
 	public:
 		World();
+		~World();
+
+		void appendTo(Ogre::SceneNode* sceneNode);
+		void appendChunk(Chunk *chunk);
+
+		Chunk* getChunk(int x, int z){
+			return chunkMap[ChunkCoord(x,z)];
+		}
+
+		void loadChunk(int x, int z, void (*callback)());
+
+		void generateChunk(int x, int z, void(*callback)());
 	};
 }
 
