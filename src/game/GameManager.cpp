@@ -58,7 +58,3 @@ bool GameManager::keyPressed(const OgreBites::KeyboardEvent &evt) {
 
 	return true;
 }
-
-SceneManager *GameManager::getSceneManager() const {
-	return sceneManager;
-}
