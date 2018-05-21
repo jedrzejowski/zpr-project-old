@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CraftMineBin" type="CMakeRunConfiguration" factoryName="Application" singleton="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="zprProject" TARGET_NAME="CraftMineBin" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="zprProject" RUN_TARGET_NAME="CraftMineBin">
+    <method />
+  </configuration>
+</component>

@@ -32,9 +32,9 @@ namespace World {
 			return chunkMap[ChunkCoord(x,z)];
 		}
 
-		void loadChunk(int x, int z, void (*callback)());
+		void loadChunk(int x, int z);
 
-		void generateChunk(int x, int z, void(*callback)());
+		void generateChunk(int x, int z);
 	};
 }
 

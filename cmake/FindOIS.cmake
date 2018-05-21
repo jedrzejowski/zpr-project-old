@@ -33,7 +33,6 @@ find_library(OIS_LIB_DBG NAMES OIS_d libOIS_d
              
 mark_as_advanced(OIS_H_PATH OIS_LIB OIS_LIB_DBG)
 
-    cegui_find_package_handle_standard_args(OIS OIS_LIB OIS_H_PATH)
 
 # set up output vars
 if (OIS_FOUND)

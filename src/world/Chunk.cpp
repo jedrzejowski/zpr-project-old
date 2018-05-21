@@ -10,14 +10,19 @@ World::Chunk::Chunk() {
 
 }
 
-World::Chunk *World::Chunk::Generate(const PerlinNoise &perlinNoise) {
+World::Chunk *World::Chunk::Generate(const ChunkCoord &chunkCoord, const PerlinNoise &perlinNoise) {
 	Chunk *chunk = new Chunk;
 
 	for (int x = 0; x < SizeX; x++)
 		for (int z = 0; z < SizeZ; z++) {
+			int Y = (int) perlinNoise.GetHeight(chunkCoord.getXOffest() + x, chunkCoord.getZOffest() + z);
 
-			auto stone = new Block::Stone();
-			chunk->appendBlock(x, 0, z, stone);
+			for (int y = 0; y < Y && y < SizeY; y++) {
+
+				auto stone = new Block::Stone();
+				chunk->appendBlock(x, y, z, stone);
+
+			}
 		}
 
 	return chunk;
@@ -36,6 +41,7 @@ void World::Chunk::appendTo(Ogre::SceneNode *sceneNode) {
 }
 
 void World::Chunk::appendBlock(Block::BlockCoord coord, Block::Abstract *block) {
+
 	blockMap[coord] = block;
 }
 

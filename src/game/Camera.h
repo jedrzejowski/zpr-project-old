@@ -25,18 +25,22 @@ namespace Game {
 		void initViewports();
 
 		void frameRendered(const Ogre::FrameEvent &evt);
+
 		bool keyPressed(const OgreBites::KeyboardEvent &evt);
+
 		bool keyReleased(const OgreBites::KeyboardEvent &evt);
-		bool mouseMoved(const OgreBites::MouseMotionEvent& evt);
+
+		bool mouseMoved(const OgreBites::MouseMotionEvent &evt);
 
 
 		Ogre::Camera *camera;
 		Ogre::SceneNode *cameraNode;
 		Ogre::Vector3 front, position, up;
-		Ogre::Real moveScale;
+		Ogre::Real moveScale, rotateScale;
 		Ogre::Degree angleX, angleY, angleZ;
 
-		bool keyW = false, keyS = false, keyD = false, keyA = false;
+		bool keyW = false, keyS = false, keyD = false, keyA = false,
+				keyUp = false, keyDown = false, keyLeft = false, keyRight = false;
 	};
 }
 

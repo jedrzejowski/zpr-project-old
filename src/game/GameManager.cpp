@@ -37,8 +37,6 @@ void GameManager::setup() {
 	lightNode->attachObject(light);
 
 
-	auto mMouseCursor = new Ogre::MouseCursor();
-
 	mainCamera = new Camera("MainCamera");
 	addInputListener(mainCamera);
 

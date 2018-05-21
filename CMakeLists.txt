@@ -46,19 +46,20 @@ target_sources(${APP_TARGET} PUBLIC
 		src/block/terrain/Stone.cpp
 		src/block/terrain/Stone.h)
 
+# cegui
+find_package(OIS REQUIRED)
+include_directories(${OGRE_INCLUDE_DIRS})
+link_directories(${OGRE_LIBRARY_DIRS})
 
 # orge3D
 find_package(OGRE REQUIRED)
 include_directories(${OGRE_INCLUDE_DIRS})
 link_directories(${OGRE_LIBRARY_DIRS})
 
-# cegui
-find_package(OIS REQUIRED)
-#include_directories(${OGRE_INCLUDE_DIRS})
-#link_directories(${OGRE_LIBRARY_DIRS})
 
 target_link_libraries(
 		${APP_TARGET}
+		${OIS_LIBRARIES}
 		${OGRE_LIBRARIES}
 		${EXTRA_LIBS}
 )
