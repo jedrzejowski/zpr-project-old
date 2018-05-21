@@ -5,6 +5,7 @@
 #include <iostream>
 #include <src/block/terrain/Stone.h>
 #include <src/world/World.h>
+#include <Overlay/OgreOverlayManager.h>
 #include "GameManager.h"
 
 using namespace std;
@@ -35,9 +36,11 @@ void GameManager::setup() {
 	lightNode->setPosition(0, 10, 15);
 	lightNode->attachObject(light);
 
+
+	auto mMouseCursor = new Ogre::MouseCursor();
+
 	mainCamera = new Camera("MainCamera");
 	addInputListener(mainCamera);
-
 
 	auto world = World::World();
 	world.appendTo(sceneManager->getRootSceneNode()->createChildSceneNode());

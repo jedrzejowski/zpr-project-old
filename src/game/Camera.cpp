@@ -14,19 +14,12 @@ Camera::Camera(const Ogre::String &name) {
 	camera->setAutoAspectRatio(true);
 
 	cameraNode = GameManager::getInstance().getSceneManager()->getRootSceneNode()->createChildSceneNode();
-	yawXNode = cameraNode->createChildSceneNode();
-	yawYNode = yawXNode->createChildSceneNode();
-	yawZNode = yawYNode->createChildSceneNode();
-	yawZNode->attachObject(camera);
-
+	cameraNode->attachObject(camera);
 
 	front = Ogre::Vector3(0, 0, -1);
 	up = Ogre::Vector3(0, 1, 0);
 	position = Ogre::Vector3(0, 0, 15);
 	moveScale = 0.1;
-
-	yawYNode->rotate(Ogre::Vector3(0, 0, 1), Ogre::Degree(90), Ogre::Node::TS_LOCAL);
-	yawZNode->rotate(Ogre::Vector3(0, 0, -1), Ogre::Degree(90), Ogre::Node::TS_LOCAL);
 
 	initViewports();
 }
@@ -63,8 +56,8 @@ bool Camera::keyReleased(const OgreBites::KeyboardEvent &evt) {
 
 void Camera::frameRendered(const Ogre::FrameEvent &evt) {
 
-	if (keyW) position += front * moveScale;
-	if (keyS) position -= front * moveScale;
+	if (keyW) position -= front * moveScale;
+	if (keyS) position += front * moveScale;
 	if (keyA) position += up.crossProduct(front).normalisedCopy() * moveScale;
 	if (keyD) position -= up.crossProduct(front).normalisedCopy() * moveScale;
 
@@ -79,13 +72,18 @@ bool Camera::mouseMoved(const OgreBites::MouseMotionEvent &evt) {
 	Ogre::Degree rotateScale(0.1);
 	Ogre::Vector3 right = up.crossProduct(front).normalisedCopy();
 
-	//cameraNode->rotate(up, rotateScale * evt.xrel, Ogre::Node::TS_PARENT);
-	//cameraNode->rotate(right, rotateScale * evt.yrel, Ogre::Node::TS_PARENT);
+	angleX -= Ogre::Degree(evt.xrel * 0.1f);
+	angleY += Ogre::Degree(evt.yrel * 0.1f);
 
-	yawXNode->yaw(rotateScale * evt.xrel);
-	yawYNode->yaw(rotateScale * evt.yrel);
+	front = Ogre::Vector3(0, 0, 1);
+	Ogre::Quaternion rotationH(angleY, Ogre::Vector3::UNIT_X);
+	Ogre::Quaternion rotationV(angleX, Ogre::Vector3::UNIT_Y);
+	front = rotationH * rotationV * front;
+	front.normalise();
 
-
+	cameraNode->resetOrientation();
+	cameraNode->rotate(rotationH, Ogre::Node::TS_WORLD);
+	cameraNode->rotate(rotationV, Ogre::Node::TS_WORLD);
 
 	return true;
 }

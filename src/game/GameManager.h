@@ -40,7 +40,9 @@ namespace Game {
 
 		//region Getters
 	public:
-		Ogre::SceneManager *getSceneManager() const;
+		Ogre::SceneManager *getSceneManager() const {
+			return sceneManager;
+		}
 		//endregion
 
 	public:

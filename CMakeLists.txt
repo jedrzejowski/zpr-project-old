@@ -3,7 +3,7 @@ project(zprProject)
 find_package(PkgConfig)
 
 #set(CMAKE_CXX_COMPILER "clang")
-#/add_definitions("-lboost_system -Wall -pthread")
+#add_definitions("-lboost_system -Wall -pthread")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lboost_system")
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -11,6 +11,8 @@ set(VERSION_MAJOR 0)
 set(VERSION_MINOR 0)
 set(VERSION_RELEASE 1)
 
+set(CMAKE_MODULE_PATH
+		${CMAKE_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_STANDARD 14)
 set(APP_TARGET CraftMineBin)
@@ -50,12 +52,13 @@ find_package(OGRE REQUIRED)
 include_directories(${OGRE_INCLUDE_DIRS})
 link_directories(${OGRE_LIBRARY_DIRS})
 
+# cegui
+find_package(OIS REQUIRED)
+#include_directories(${OGRE_INCLUDE_DIRS})
+#link_directories(${OGRE_LIBRARY_DIRS})
+
 target_link_libraries(
 		${APP_TARGET}
-		${GLFW_LIBRARIES}
-		${OPENGL_LIBRARIES}
-		${GLEW_LIBRARIES}
-		${GLM_LIBRARIES}
 		${OGRE_LIBRARIES}
 		${EXTRA_LIBS}
 )

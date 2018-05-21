@@ -8,7 +8,6 @@
 #include <Bites/OgreInput.h>
 #include <Bites/OgreApplicationContext.h>
 
-
 namespace Game {
 	class Camera : public OgreBites::InputListener {
 	public:
@@ -32,12 +31,12 @@ namespace Game {
 
 
 		Ogre::Camera *camera;
-		Ogre::SceneNode *cameraNode, *yawXNode, *yawYNode, *yawZNode;
+		Ogre::SceneNode *cameraNode;
 		Ogre::Vector3 front, position, up;
 		Ogre::Real moveScale;
+		Ogre::Degree angleX, angleY, angleZ;
 
 		bool keyW = false, keyS = false, keyD = false, keyA = false;
-
 	};
 }
 
